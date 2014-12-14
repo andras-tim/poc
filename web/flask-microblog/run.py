@@ -1,5 +1,5 @@
 #!flask/bin/python
-# http://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-ii-templates
+# http://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-iii-web-forms
 
 from app import app
 
