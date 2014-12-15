@@ -1,5 +1,5 @@
 #!flask/bin/python
-# http://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-iv-database
+# http://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-v-user-logins
 
 from app import app
 
