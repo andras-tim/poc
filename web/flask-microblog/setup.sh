@@ -18,6 +18,7 @@ flask/bin/pip install flask-babel
 flask/bin/pip install guess_language
 flask/bin/pip install flipflop
 flask/bin/pip install coverage
+flask/bin/pip install mysql-connector-python --allow-external mysql-connector-python
 
 
 # Prepare file system of virtual environment
