@@ -1,5 +1,5 @@
 #!flask/bin/python
-# http://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-xii-facelift
+# http://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-xiii-dates-and-times
 
 from app import app
 
