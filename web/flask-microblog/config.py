@@ -17,3 +17,13 @@ OPENID_PROVIDERS = [
 # http://docs.sqlalchemy.org/en/rel_0_9/dialects/mysql.html#module-sqlalchemy.dialects.mysql.mysqldb
 SQLALCHEMY_DATABASE_URI = 'mysql+mysqlconnector://user:pass@localhost/poc-microblog'
 SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db_repository')
+
+
+# mail server settings
+MAIL_SERVER = 'localhost'
+MAIL_PORT = 25
+MAIL_USERNAME = None
+MAIL_PASSWORD = None
+
+# administrator list
+ADMINS = ['andras.tim@gmail.com']
