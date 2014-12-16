@@ -1,5 +1,5 @@
 #!flask/bin/python
-# http://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-ix-pagination
+# http://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-x-full-text-search
 
 from app import app
 
