@@ -10,7 +10,7 @@
         <h1>{{ user.nickname }}</h1>
         {% if user.about_me %}<p>{{ user.about_me }}</p>{% endif %}
         {% if user.last_seen %}<p><em>Last seen: {{ momentjs(user.last_seen).calendar() }}</em></p>{% endif %}
-        <p>Followers: {{ user.followers.count() - 1 }} | Following: {{ user.followed.count() - 1 }} |
+        <p>{{ gettext('Followers: %(num)d', num=user.followers.count() - 1) }} | {{ gettext('Following: %(num)d', num=user.followed.count() - 1) }} |
         {% if user.id == g.user.id %}
             <a href="{{url_for('edit')}}">Edit your profile</a>
         {% elif not g.user.is_following(user) %}

@@ -15,6 +15,7 @@ flask/bin/pip install sqlalchemy-migrate
 #flask/bin/pip install flask-whooshalchemy
 flask/bin/pip install git+git://github.com/miguelgrinberg/flask-whooshalchemy.git
 flask/bin/pip install flask-wtf
+flask/bin/pip install git+git://github.com/mitsuhiko/babel.git --global-option import_cldr
 flask/bin/pip install flask-babel
 flask/bin/pip install guess_language
 flask/bin/pip install flipflop
