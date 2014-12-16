@@ -25,5 +25,10 @@ MAIL_PORT = 25
 MAIL_USERNAME = None
 MAIL_PASSWORD = None
 
+
 # administrator list
 ADMINS = ['andras.tim@gmail.com']
+
+
+# pagination
+POSTS_PER_PAGE = 3

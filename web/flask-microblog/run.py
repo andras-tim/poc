@@ -1,5 +1,5 @@
 #!flask/bin/python
-# http://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-viii-followers-contacts-and-friends
+# http://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-ix-pagination
 
 from app import app
 
