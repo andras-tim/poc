@@ -1,11 +1,16 @@
 #!flask/bin/python
 import os
 import unittest
+from coverage import coverage
 from datetime import datetime, timedelta
-
+from app.translate import microsoft_translate
 from config import basedir
 from app import app, db
 from app.models import User, Post
+
+
+cov = coverage(branch=True, omit=['flask/*', 'tests.py'])
+cov.start()
 
 
 class TestCase(unittest.TestCase):
@@ -119,6 +124,21 @@ class TestCase(unittest.TestCase):
         self.assertEqual(f3, [p4, p3])
         self.assertEqual(f4, [p4])
 
+    #def test_translation(self):
+    #    assert microsoft_translate(u'English', 'en', 'es') == u'Inglés'
+    #    assert microsoft_translate(u'Español', 'es', 'en') == u'Spanish'
+
 
 if __name__ == '__main__':
-    unittest.main()
+    try:
+        unittest.main()
+    except:
+        pass
+
+    cov.stop()
+    cov.save()
+    print("\n\nCoverage Report:\n")
+    cov.report()
+    print("HTML version: " + os.path.join(basedir, "tmp/coverage/index.html"))
+    cov.html_report(directory='tmp/coverage')
+    cov.erase()

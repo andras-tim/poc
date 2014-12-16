@@ -1,5 +1,5 @@
 #!flask/bin/python
-# http://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-xiv-i18n-and-l10n
+# http://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-xv-ajax
 
 from app import app
 
