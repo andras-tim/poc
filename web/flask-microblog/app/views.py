@@ -3,7 +3,7 @@ from flask import render_template, flash, redirect, session, url_for, request, g
 from flask.ext.login import login_user, logout_user, current_user, login_required
 from app import app, db, lm, oid
 from .forms import LoginForm, EditForm
-from .models import User
+from .models import User, Post
 
 
 @app.errorhandler(404)
@@ -36,16 +36,7 @@ def before_request():
 @login_required
 def index():
     user = g.user
-    posts = [  # fake array of posts
-               {
-                   'author': {'nickname': 'John'},
-                   'body': 'Beautiful day in Portland!'
-               },
-               {
-                   'author': {'nickname': 'Susan'},
-                   'body': 'The Avengers movie was so cool!'
-               }
-    ]
+    posts = Post.query.all()
     return render_template('index.html',
                            title='Home',
                            user=user,
@@ -88,6 +79,10 @@ def after_login(resp):
         db.session.add(user)
         db.session.commit()
 
+        # make the user follow him/herself
+        db.session.add(user.follow(user))
+        db.session.commit()
+
     remember_me = False
     if 'remember_me' in session:
         remember_me = session['remember_me']
@@ -112,10 +107,7 @@ def user(nickname):
     if user is None:
         flash('User %s not found.' % nickname)
         return redirect(url_for('index'))
-    posts = [
-        {'author': user, 'body': 'Test post #1'},
-        {'author': user, 'body': 'Test post #2'}
-    ]
+    posts = Post.query.filter_by(user_id=user.id).all()
     return render_template('user.html',
                            user=user,
                            posts=posts)
@@ -136,3 +128,51 @@ def edit():
         form.nickname.data = g.user.nickname
         form.about_me.data = g.user.about_me
     return render_template('edit.html', form=form)
+
+
+@app.route('/follow/<nickname>')
+@login_required
+def follow(nickname):
+    user = User.query.filter_by(nickname=nickname).first()
+    if user is None:
+        flash('User %s not found.' % nickname)
+        return redirect(url_for('index'))
+
+    if user == g.user:
+        flash('You can\'t follow yourself!')
+        return redirect(url_for('user', nickname=nickname))
+
+    u = g.user.follow(user)
+    if u is None:
+        flash('Cannot follow ' + nickname + '.')
+        return redirect(url_for('user', nickname=nickname))
+
+    db.session.add(u)
+    db.session.commit()
+    flash('You are now following ' + nickname + '!')
+
+    return redirect(url_for('user', nickname=nickname))
+
+
+@app.route('/unfollow/<nickname>')
+@login_required
+def unfollow(nickname):
+    user = User.query.filter_by(nickname=nickname).first()
+    if user is None:
+        flash('User %s not found.' % nickname)
+        return redirect(url_for('index'))
+
+    if user == g.user:
+        flash('You can\'t unfollow yourself!')
+        return redirect(url_for('user', nickname=nickname))
+
+    u = g.user.unfollow(user)
+    if u is None:
+        flash('Cannot unfollow ' + nickname + '.')
+        return redirect(url_for('user', nickname=nickname))
+
+    db.session.add(u)
+    db.session.commit()
+    flash('You have stopped following ' + nickname + '.')
+
+    return redirect(url_for('user', nickname=nickname))
