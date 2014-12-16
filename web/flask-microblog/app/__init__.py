@@ -22,9 +22,6 @@ oid = OpenID(app, os.path.join(basedir, 'tmp'))
 
 mail = Mail(app)
 
-# Init models and views (must be the last)
-from app import views, models
-
 
 if not app.debug:
     import logging
@@ -50,3 +47,7 @@ if not app.debug:
     file_handler.setLevel(logging.INFO)
     app.logger.addHandler(file_handler)
     app.logger.info('microblog startup')
+
+
+# Init models and views (must be the last)
+from app import views, models
