@@ -1,5 +1,5 @@
 #!flask/bin/python
-# http://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-xi-email-support
+# http://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-xii-facelift
 
 from app import app
 
