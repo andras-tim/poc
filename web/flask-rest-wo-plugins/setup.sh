@@ -10,3 +10,4 @@ fi
 flask/bin/pip install pip --upgrade
 flask/bin/pip install setuptools --upgrade
 flask/bin/pip install flask
+flask/bin/pip install flask-httpauth
