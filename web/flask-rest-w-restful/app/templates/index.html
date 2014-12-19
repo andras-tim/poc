@@ -16,9 +16,39 @@
   </div>
   <div id="main" class="container">
 
-  Hello World!
+    <table class="table table-striped">
+      <tr>
+        <td style="width: 1px;"></td>
+        <td><b>Task</b></td>
+        <td><b>Options</b></td>
+      </tr>
+      <!-- ko foreach: tasks -->
+      <tr>
+        <td>
+          <span data-bind="visible: done" class="label label-success">Done</span>
+          <span data-bind="visible: !done()" class="label label-important">In Progress</span>
+        </td>
+        <td>
+          <p><b data-bind="text: title"></b></p>
+          <p data-bind="text: description"></p>
+        </td>
+        <td>
+          <button data-bind="click: $parent.beginEdit" class="btn">Edit</button>
+          <button data-bind="click: $parent.remove" class="btn">Delete</button>
+          <span data-bind="visible: done">
+            <button data-bind="click: $parent.markInProgress" class="btn">Mark In Progress</button>
+          </span>
+          <span data-bind="visible: !done()">
+            <button data-bind="click: $parent.markDone" class="btn">Mark Done</button>
+          </span>
+        </td>
+      </tr>
+      <!-- /ko -->
+    </table>
+    <button data-bind="click: beginAdd" class="btn">Add Task</button>
 
   </div>
+  <script src="{{ url_for('static', filename='js/viewmodel/index.js') }}"></script>
   <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
 </body>
 </html>
