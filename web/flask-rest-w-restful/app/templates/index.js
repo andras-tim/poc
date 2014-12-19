@@ -2,8 +2,7 @@ function TasksViewModel()
 {
   var self = this;
   self.tasksURI = "{{ url_for('tasks') }}";
-  self.username = "miguel";
-  self.password = "python";
+  self.token = "";
   self.tasks = ko.observableArray();
 
   self.ajax = function(uri, method, data)
@@ -18,7 +17,7 @@ function TasksViewModel()
       data: JSON.stringify(data),
       beforeSend: function (xhr)
       {
-        xhr.setRequestHeader("Authorization", "Basic " + btoa(self.username + ":" + self.password));
+        xhr.setRequestHeader("Authorization", "Basic " + self.token);
       },
       error: function(jqXHR)
       {
@@ -92,21 +91,37 @@ function TasksViewModel()
       });
   }
 
-  self.ajax(self.tasksURI, 'GET').done(function(data)
+  self.beginLogin = function()
   {
-    for (var i = 0; i < data.tasks.length; i++)
+    $('#login').modal('show');
+  }
+
+  self.login = function(username, password)
+  {
+    self.token = btoa(username + ":" + password);
+    self.ajax(self.tasksURI, 'GET').done(function(data)
     {
-      self.tasks.push({
-        uri: ko.observable(data.tasks[i].uri),
-        title: ko.observable(data.tasks[i].title),
-        description: ko.observable(data.tasks[i].description),
-        done: ko.observable(data.tasks[i].done)
-      });
-    }
-  });
+      for (var i = 0; i < data.tasks.length; i++)
+      {
+        self.tasks.push({
+          uri: ko.observable(data.tasks[i].uri),
+          title: ko.observable(data.tasks[i].title),
+          description: ko.observable(data.tasks[i].description),
+          done: ko.observable(data.tasks[i].done)
+        });
+      }
+    }).fail(function(err)
+    {
+      if (jqXHR.status == 403)
+        setTimeout(self.beginLogin, 500);
+    });
+  }
+
+  self.beginLogin();
 }
 
-function AddTaskViewModel() {
+function AddTaskViewModel()
+{
   var self = this;
   self.title = ko.observable();
   self.description = ko.observable();
@@ -149,10 +164,26 @@ function EditTaskViewModel()
   }
 }
 
+function LoginViewModel()
+{
+  var self = this;
+  self.username = ko.observable();
+  self.password = ko.observable();
+
+  self.login = function()
+  {
+    $('#login').modal('hide');
+    tasksViewModel.login(self.username(), self.password());
+  }
+}
+
+
 
 var tasksViewModel = new TasksViewModel();
 var addTaskViewModel = new AddTaskViewModel();
 var editTaskViewModel = new EditTaskViewModel();
+var loginViewModel = new LoginViewModel();
 ko.applyBindings(tasksViewModel, $('#main')[0]);
 ko.applyBindings(addTaskViewModel, $('#add')[0]);
 ko.applyBindings(editTaskViewModel, $('#edit')[0]);
+ko.applyBindings(loginViewModel, $('#login')[0]);

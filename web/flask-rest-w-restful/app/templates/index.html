@@ -109,7 +109,32 @@
     </div>
   </div>
 
-  <script src="index.js"></script>
+  <div id="login" class="modal hide fade" tabindex="=1" role="dialog" aria-labelledby="loginLabel" aria-hidden="true">
+    <div class="modal-header">
+      <h3 id="loginLabel">Sign In</h3>
+    </div>
+    <div class="modal-body">
+      <form class="form-horizontal">
+        <div class="control-group">
+          <label class="control-label" for="inputUsername">Username</label>
+          <div class="controls">
+            <input data-bind="value: username" type="text" id="inputUsername" placeholder="Username">
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="inputPassword">Password</label>
+          <div class="controls">
+            <input data-bind="value: password" type="password" id="inputPassword" placeholder="Password">
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button data-bind="click: login" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Sign In</button>
+    </div>
+  </div>
+
   <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+  <script src="index.js"></script>
 </body>
 </html>
