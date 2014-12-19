@@ -1,4 +1,4 @@
-from flask import render_template, request, g
+from flask import render_template, request, g, make_response
 from app import app, babel
 from config import LANGUAGES
 
@@ -16,3 +16,11 @@ def before_request():
 @app.route('/', methods=['GET'])
 def index():
     return render_template('index.html')
+
+
+@app.route('/index.js', methods=['GET'])
+def index_js():
+    js = render_template('index.js')
+    response = make_response(js)
+    response.mimetype = 'application/javascript'
+    return response

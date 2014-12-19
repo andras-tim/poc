@@ -46,9 +46,70 @@
       <!-- /ko -->
     </table>
     <button data-bind="click: beginAdd" class="btn">Add Task</button>
-
   </div>
-  <script src="{{ url_for('static', filename='js/viewmodel/index.js') }}"></script>
+
+  <div id="add" class="modal hide fade" tabindex="=1" role="dialog" aria-labelledby="addDialogLabel" aria-hidden="true">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      <h3 id="addDialogLabel">Add Task</h3>
+    </div>
+    <div class="modal-body">
+      <form class="form-horizontal">
+        <div class="control-group">
+          <label class="control-label" for="inputTask">Task</label>
+          <div class="controls">
+            <input data-bind="value: title" type="text" id="inputTask" placeholder="Task title" style="width: 150px;">
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="inputDescription">Description</label>
+          <div class="controls">
+            <input data-bind="value: description" type="text" id="inputDescription" placeholder="Description" style="width: 300px;">
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button data-bind="click: addTask" class="btn btn-primary">Add Task</button>
+      <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+    </div>
+  </div>
+
+  <div id="edit" class="modal hide fade" tabindex="=1" role="dialog" aria-labelledby="editDialogLabel" aria-hidden="true">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      <h3 id="editDialogLabel">Add Task</h3>
+    </div>
+    <div class="modal-body">
+      <form class="form-horizontal">
+        <div class="control-group">
+          <label class="control-label" for="inputTask">Task</label>
+          <div class="controls">
+            <input data-bind="value: title" type="text" id="inputTask" placeholder="Task title" style="width: 150px;">
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="inputDescription">Description</label>
+          <div class="controls">
+            <input data-bind="value: description" type="text" id="inputDescription" placeholder="Description" style="width: 300px;">
+          </div>
+        </div>
+        <div class="control-group">
+          <div class="controls">
+            <label class="checkbox">
+              <input data-bind="checked: done" type="checkbox"> Done
+            </label>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button data-bind="click:editTask" class="btn btn-primary">Update Task</button>
+      <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+    </div>
+  </div>
+
+  <script src="index.js"></script>
   <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
 </body>
 </html>
