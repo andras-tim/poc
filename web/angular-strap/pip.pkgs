@@ -6,3 +6,4 @@ setuptools
 flask
 flask-restful
 Flask-HTTPAuth
+uwsgi

@@ -14,7 +14,7 @@
     "shelljs": "^0.2.6"
   },
   "scripts": {
-    "preinstall": "sudo apt-get install build-essential python3.4 python-virtualenv",
+    "preinstall": "sudo apt-get install build-essential python3.4 python3.4-dev python-virtualenv",
     "postinstall": "if [ ! -e flask ]; then virtualenv -p /usr/bin/python3.4 flask; fi && flask/bin/pip install -r pip.pkgs --upgrade && bower install && npm run update-webdriver",
 
     "start": "flask/bin/python run.py",
