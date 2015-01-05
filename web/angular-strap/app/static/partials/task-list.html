@@ -1,0 +1,34 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2">
+      <!--Sidebar content-->
+
+      Search: <input ng-model="query">
+      Sort by:
+      <select ng-model="orderProp">
+        <option value="title">Title /\</option>
+        <option value="-title">Title \/</option>
+        <option value="description">Description /\</option>
+        <option value="-description">Description \/</option>
+      </select>
+
+    </div>
+    <div class="col-md-10">
+      <!--Body content-->
+
+      <table>
+        <thead>
+          <th width="200">Title</th>
+          <th width="50">Done</th>
+        </thead>
+        <tbody>
+          <tr ng-repeat="task in tasks | filter:query | orderBy:orderProp">
+            <td><a href="#/tasks/{{task.id}}">{{task.title}}</a></td>
+            <td><p>{{task.done | checkmark}}</p></td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+{
+  "name": "tasks",
+  "description": "Tasks",
+  "version": "0.0.0",
+  "private": true,
+  "repository": "git@github.com:andras-tim/poc-for-everything.git",
+  "devDependencies": {
+    "karma": "^0.12.16",
+    "karma-chrome-launcher": "^0.1.4",
+    "karma-jasmine": "^0.1.5",
+    "protractor": "~1.0.0",
+    "tmp": "0.0.23",
+    "bower": "^1.3.1",
+    "shelljs": "^0.2.6"
+  },
+  "scripts": {
+    "preinstall": "sudo apt-get install build-essential python3.4 python-virtualenv",
+    "postinstall": "if [ ! -e flask ]; then virtualenv -p /usr/bin/python3.4 flask; fi && flask/bin/pip install -r pip.pkgs --upgrade && bower install && npm run update-webdriver",
+
+    "start": "flask/bin/python run.py",
+
+    "test": "node node_modules/karma/bin/karma start test/karma.conf.js",
+    "test-single-run": "node node_modules/karma/bin/karma start test/karma.conf.js  --single-run",
+
+    "update-webdriver": "webdriver-manager update",
+
+    "protractor": "protractor test/protractor-conf.js"
+  }
+}
