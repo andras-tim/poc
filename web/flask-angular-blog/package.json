@@ -1,0 +1,17 @@
+{
+  "name": "blog",
+  "description": "Blog",
+  "version": "0.0.0",
+  "private": true,
+  "repository": "git@github.com:andras-tim/poc-for-everything.git",
+  "devDependencies": {
+  },
+  "scripts": {
+    "preinstall": "sudo apt-get install build-essential python3.4 python-virtualenv",
+    "postinstall": "npm run install-server",
+
+    "install-server": "if [ ! -e server/flask ]; then virtualenv -p /usr/bin/python3.4 server/flask; fi && server/flask/bin/pip install -r server/pip.pkgs --upgrade",
+
+    "start": "server/flask/bin/python server/run.py"
+  }
+}
