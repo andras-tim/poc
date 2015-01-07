@@ -3,32 +3,40 @@
     <div class="col-md-2">
       <!--Sidebar content-->
 
-      Search: <input ng-model="query">
-      Sort by:
-      <select ng-model="orderProp">
-        <option value="title">Title /\</option>
-        <option value="-title">Title \/</option>
-        <option value="description">Description /\</option>
-        <option value="-description">Description \/</option>
-      </select>
+      <div class="form-group">
+        <label>Search:</label>
+        <input type="text" class="form-control" placeholder="Enter search query" ng-model="query" />
+      </div>
+      <div class="form-group">
+        <label>Sort by:</label>
+        <select class="form-control" ng-model="orderProp">
+          <option value="title">Title /\</option>
+          <option value="-title">Title \/</option>
+          <option value="description">Description /\</option>
+          <option value="-description">Description \/</option>
+        </select>
+      </div>
 
     </div>
     <div class="col-md-10">
       <!--Body content-->
 
-      <table>
+      <h2>Tasks</h2>
+      <table class="table">
         <thead>
           <th width="200">Title</th>
           <th width="50">Done</th>
+          <th></th>
         </thead>
         <tbody>
           <tr ng-repeat="task in tasks | filter:query | orderBy:orderProp">
             <td><a href="#/tasks/{{task.id}}">{{task.title}}</a></td>
-            <td><p>{{task.done | checkmark}}</p></td>
+            <td data-ng-click="toggle_done(task)">{{task.done | checkmark}}</td>
+            <td><button type="button" class="btn btn-danger" ng-click="remove(task)">Delete</button></td>
           </tr>
         </tbody>
       </table>
-
+      <button type="button" class="btn btn-lg btn-primary" data-template="partials/task-list_new-task-modal.html" bs-modal="modal">New Task</button>
     </div>
   </div>
 </div>

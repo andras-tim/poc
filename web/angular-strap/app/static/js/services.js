@@ -2,11 +2,9 @@
 
 /* Services */
 
-var taskServices = angular.module('taskServices', ['ngResource']);
+var taskServices = angular.module('taskServices', []);
 
-taskServices.factory('Task', ['$resource',
-  function($resource){
-    return $resource('api/tasks/:taskId', {taskId:'@id'}, {
-      'put': {method:'PUT'}
-    });
+taskServices.factory('Task', ['Restangular',
+  function(Restangular) {
+    return Restangular.service('tasks');
   }]);

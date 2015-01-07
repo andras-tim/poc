@@ -6,30 +6,33 @@ var taskControllers = angular.module('taskControllers', []);
 
 taskControllers.controller('TaskListCtrl', ['$scope', 'Task',
   function($scope, Task) {
-
-    Task.query({}, function(tasks) {
-      console.debug(tasks);
-
-      if (tasks.length == 4) {
-        tasks[1].$delete();
-
-      } else if (tasks.length <= 4) {
-        var newTask = new Task();
-        newTask.title = 'Tia Random ' + Math.floor((Math.random() * 1000) + 1);
-        newTask.description = 'oasndfoijasfio asoifjasdf';
-        newTask.$save();
-      }
-
-      tasks[0].done = !tasks[0].done;
-      console.debug(tasks[0])
-      tasks[0].$put();
-    });
-
-    $scope.tasks = Task.query();
+    $scope.tasks = Task.getList().$object;
     $scope.orderProp = 'title';
+
+    $scope.toggle_done = function(task) {
+      task.done = ! task.done;
+      task.put();
+    }
+
+    $scope.remove = function(task) {
+      task.remove().then(function() {
+        $scope.tasks = _.without($scope.tasks, task);
+      });
+    }
+  }]);
+
+taskControllers.controller('AddTaskCtrl', ['$scope', 'Restangular', 'Task',
+  function($scope, Restangular, Task) {
+    $scope.task = {title: '', description: ''};
+
+    $scope.update = function(task) {
+      Task.post(Restangular.copy(task)).then(function(resp) {
+        $scope.tasks.push(resp);
+      });
+    }
   }]);
 
 taskControllers.controller('TaskDetailCtrl', ['$scope', '$routeParams', 'Task',
   function($scope, $routeParams, Task) {
-    $scope.task = Task.get({taskId: $routeParams.taskId});
+    $scope.task = Task.one($routeParams.taskId).get().$object;
   }]);

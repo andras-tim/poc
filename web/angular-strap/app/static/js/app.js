@@ -4,11 +4,22 @@
 
 var taskApp = angular.module('taskApp', [
   'mgcrea.ngStrap',
+  'ngSanitize',
   'ngRoute',
+  'ngAnimate',
+  'restangular',
   'taskControllers',
   'taskFilters',
   'taskServices'
 ]);
+
+taskApp.config(['$modalProvider',
+  function($modalProvider) {
+    angular.extend($modalProvider.defaults, {
+      html: true
+    });
+  }]);
+
 
 taskApp.config(['$routeProvider',
   function($routeProvider) {
@@ -24,4 +35,9 @@ taskApp.config(['$routeProvider',
       otherwise({
         redirectTo: '/tasks'
       });
+  }]);
+
+taskApp.config(['RestangularProvider',
+  function(RestangularProvider) {
+    RestangularProvider.setBaseUrl('api');
   }]);
