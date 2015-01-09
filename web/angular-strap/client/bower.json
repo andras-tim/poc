@@ -2,6 +2,9 @@
   "name": "tasks",
   "description": "Tasks",
   "version": "0.0.0",
+  "authors": [
+    "Andras Tim <andras.tim@gmail.com>"
+  ],
   "private": true,
   "dependencies": {
     "angular": "~1.3.8",
