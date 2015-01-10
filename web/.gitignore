@@ -1,4 +1,9 @@
 angular-official/
 
-# Flask
+# Distribution / packaging
 flask/
+bower_components/
+node_modules/
+logs/*
+!.gitkeep
+tmp
