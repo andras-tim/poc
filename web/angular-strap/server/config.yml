@@ -4,14 +4,22 @@ USED_CONFIG: DevelopmentConfig
 DefaultConfig:
   App:
     NAME: test
+    MIGRATE_REPO_PATH: $BASEDIR/db_repository
+
   Flask:
     # http://flask.pocoo.org/docs/0.10/config/
     DEBUG: False
     TESTING: False
 
+    # https://pythonhosted.org/Flask-SQLAlchemy/config.html
+    SQLALCHEMY_DATABASE_URI: sqlite:///$BASEDIR/app.sqlite
+
 
 ProductionConfig:
   Base: DefaultConfig
+
+  Flask:
+    SQLALCHEMY_DATABASE_URI: mysql+mysqlconnector://tasks:a@localhost/tasks
 
 
 DevelopmentConfig:
