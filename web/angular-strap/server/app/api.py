@@ -1,7 +1,7 @@
 from flask import jsonify, abort, make_response
 from flask.ext.restful import Api, Resource, reqparse, fields, marshal
 from flask.ext.httpauth import HTTPBasicAuth
-from app import app
+from .server import config, app
 from .data import tasks
 
 api = Api(app)
@@ -97,6 +97,6 @@ class TaskAPI(Resource):
         return
 
 
-api.add_resource(TaskListAPI, '/test/api/tasks', endpoint='tasks')
-api.add_resource(TaskListAPI, '/test/api/tasks/', endpoint='tasks2')
-api.add_resource(TaskAPI, '/test/api/tasks/<int:id>', endpoint='task')
+api.add_resource(TaskListAPI, '/%s/api/tasks' % config.App.NAME, endpoint='tasks')
+api.add_resource(TaskListAPI, '/%s/api/tasks/' % config.App.NAME, endpoint='tasks2')
+api.add_resource(TaskAPI, '/%s/api/tasks/<int:id>' % config.App.NAME, endpoint='task')
