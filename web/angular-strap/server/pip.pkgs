@@ -7,3 +7,5 @@ flask
 flask-restful
 Flask-HTTPAuth
 uwsgi
+PyYAML
+coverage

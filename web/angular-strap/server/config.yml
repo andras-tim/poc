@@ -1,0 +1,28 @@
+USED_CONFIG: DevelopmentConfig
+
+
+DefaultConfig:
+  Flask:
+    # http://flask.pocoo.org/docs/0.10/config/
+    SERVER_NAME: 0.0.0.0:8000
+    STATIC_FOLDER: /test
+    DEBUG: False
+    TESTING: False
+
+
+ProductionConfig:
+  Base: DefaultConfig
+
+
+DevelopmentConfig:
+  Base: DefaultConfig
+
+  Flask:
+    DEBUG: True
+
+
+TestingConfig:
+  Base: DefaultConfig
+
+  Flask:
+    TESTING: True
