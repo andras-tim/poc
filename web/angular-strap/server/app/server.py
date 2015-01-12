@@ -27,4 +27,4 @@ auth = HTTPBasicAuth()
 
 
 # Init models and views (must be the last)
-from app import models, views
+from app import views

@@ -1,34 +1,10 @@
-from flask import redirect, url_for, jsonify, abort, make_response
-from flask.ext.restful import Resource, reqparse, fields, marshal
+from flask import g, redirect, url_for, abort
+from flask.ext import restful
 
-from .server import config, app, auth, api
-from .data import tasks
-
-
-task_fields = {
-    'id': fields.Integer,
-    'title': fields.String,
-    'description': fields.String,
-    'done': fields.Boolean,
-    'uri': fields.Url('task')
-}
-
-
-@auth.get_password
-def get_password(username):
-    if username == 'test':
-        return 'a'
-    return None
-
-
-@app.errorhandler(404)
-def not_found(error):
-    return make_response(jsonify({'error': 'Not found'}), 404)
-
-
-# @auth.error_handler
-# def unauthorized():
-#     return make_response(jsonify({'error': 'Unauthorized access'}), 403)
+from .server import config, app, api, db, bcrypt, auth
+from .models import User, Task
+from .forms import UserCreateForm, TaskCreateForm
+from .serializers import UserSerializer, TaskSerializer
 
 
 @app.route('/test', methods=['GET'])
@@ -37,69 +13,92 @@ def index():
     return redirect(url_for('static', filename='index.html'))
 
 
-class TaskListAPI(Resource):
-    decorators = [auth.login_required]
-
-    def __init__(self):
-        self.reqparse = reqparse.RequestParser()
-        self.reqparse.add_argument('title', type=str, required=True, help='No task title provided', location='json')
-        self.reqparse.add_argument('description', type=str, default="", location='json')
-
-        super(TaskListAPI, self).__init__()
-
-    def get(self):  # get_tasks
-        return list(map(lambda t: marshal(t, task_fields), tasks))
-
-    def post(self):  # create_task
-        args = self.reqparse.parse_args()
-        task = {
-            'id': tasks[-1]['id'] + 1,
-            'title': args['title'],
-            'description': args['description'],
-            'done': False
-        }
-        tasks.append(task)
-        return marshal(task, task_fields), 201
+@app.errorhandler(500)
+def internal_error(error):
+    db.session.rollback()
+    abort(500)
 
 
-class TaskAPI(Resource):
-    decorators = [auth.login_required]
+@auth.verify_password
+def verify_password(email, password):
+    user = User.query.filter_by(email=email).first()
+    if not user:
+        return False
+    g.user = user
+    return bcrypt.check_password_hash(user.password, password)
 
-    def __init__(self):
-        self.reqparse = reqparse.RequestParser()
-        self.reqparse.add_argument('title', type=str, location='json')
-        self.reqparse.add_argument('description', type=str, location='json')
-        self.reqparse.add_argument('done', type=bool, location='json')
 
-        super(TaskAPI, self).__init__()
+class UserListView(restful.Resource):
+    def post(self):  # create_user
+        form = UserCreateForm()
+        if not form.validate_on_submit():
+            return form.errors, 422
 
-    def get(self, id):  # get_task
-        task = list(filter(lambda t: t['id'] == id, tasks))
-        if len(task) == 0:
+        user = User(form.email.data, form.password.data)
+        db.session.add(user)
+        db.session.commit()
+        return UserSerializer(user).data
+
+
+class UserView(restful.Resource):
+    @auth.login_required
+    def delete(self, id):  # delete_user
+        user = User.query.filter_by(id=id).first()
+        if not user:
             abort(404)
-        return marshal(task[0], task_fields)
-
-    def put(self, id):  # update_task
-        task = list(filter(lambda t: t['id'] == id, tasks))
-        if len(task) == 0:
-            abort(404)
-        task = task[0]
-
-        args = self.reqparse.parse_args()
-        for k, v in args.items():
-            if v is not None:
-                task[k] = v
-
-        return marshal(task, task_fields)
-
-    def delete(self, id):  # delete_task
-        task = list(filter(lambda t: t['id'] == id, tasks))
-        if len(task) == 0:
-            abort(404)
-        tasks.remove(task[0])
+        if g.user.id != id:
+            abort(403)
+        db.session.delete(user)
+        db.session.commit()
         return
 
 
-api.add_resource(TaskListAPI, '/%s/api/tasks' % config.App.NAME, endpoint='tasks')
-api.add_resource(TaskListAPI, '/%s/api/tasks/' % config.App.NAME, endpoint='tasks2')
-api.add_resource(TaskAPI, '/%s/api/tasks/<int:id>' % config.App.NAME, endpoint='task')
+class TaskListView(restful.Resource):
+    @auth.login_required
+    def get(self):
+        posts = Task.query.all()
+        return TaskSerializer(posts, many=True).data
+
+    @auth.login_required
+    def post(self):
+        form = TaskCreateForm()
+        if not form.validate_on_submit():
+            return form.errors, 422
+        task = Task(form.title.data, form.description.data)
+        db.session.add(task)
+        db.session.commit()
+        return TaskSerializer(task).data, 201
+
+
+class TaskView(restful.Resource):
+    @auth.login_required
+    def get(self, id):  # get_task
+        task = Task.query.filter_by(id=id).first()
+        if not task:
+            abort(404)
+        return TaskSerializer(task).data
+
+    @auth.login_required
+    def put(self, id):  # update_task
+        form = TaskCreateForm()
+        if not form.validate_on_submit():
+            return form.errors, 422
+        task = Task(form.title.data, form.description.data)
+        db.session.add(task)
+        db.session.commit()
+        return TaskSerializer(task).data, 201
+
+    @auth.login_required
+    def delete(self, id):  # delete_task
+        task = Task.query.filter_by(id=id).first()
+        if not task:
+            abort(404)
+        db.session.delete(task)
+        db.session.commit()
+        return
+
+
+api.add_resource(UserListView, '/%s/api/users' % config.App.NAME, endpoint='users')
+api.add_resource(UserView, '/%s/api/users/<int:id>' % config.App.NAME, endpoint='user')
+api.add_resource(TaskListView, '/%s/api/tasks' % config.App.NAME, endpoint='tasks')
+api.add_resource(TaskView, '/%s/api/tasks/<int:id>' % config.App.NAME, endpoint='task')

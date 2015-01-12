@@ -8,6 +8,7 @@ DefaultConfig:
 
   Flask:
     # http://flask.pocoo.org/docs/0.10/config/
+    SECRET_KEY: SoseTalalodKi!
     DEBUG: False
     TESTING: False
 
@@ -26,11 +27,16 @@ DevelopmentConfig:
   Base: DefaultConfig
 
   Flask:
+    WTF_CSRF_ENABLED: False
     DEBUG: True
+
+    # http://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-xvi-debugging-testing-and-profiling
+    # SQLALCHEMY_RECORD_QUERIES = True
 
 
 TestingConfig:
   Base: DefaultConfig
 
   Flask:
+    WTF_CSRF_ENABLED: False
     TESTING: True
