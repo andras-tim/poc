@@ -16,6 +16,26 @@ class User(db.Model):
     def __repr__(self):
         return '<User %r>' % self.email
 
+    @classmethod
+    def get_user(cls, email):
+        return User.query.filter_by(email=email).first()
+
+    # flask-loginmanager
+    def is_authenticated(self):
+        return True
+
+    # flask-loginmanager
+    def is_active(self):
+        return True
+
+    # flask-loginmanager
+    def is_anonymous(self):
+        return False
+
+    # flask-loginmanager
+    def get_id(self):
+        return str(self.id)
+
 
 class Task(db.Model):
     id = db.Column(db.Integer, primary_key=True)
