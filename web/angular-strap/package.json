@@ -20,6 +20,10 @@
     "install-server": "cd server && if [ ! -e flask ]; then virtualenv -p /usr/bin/python3.4 flask; fi && flask/bin/pip install -r pip.pkgs --upgrade --allow-external mysql-connector-python && if [ ! -e app/static ]; then ln -s ../../client/app app/static; fi",
     "install-client": "cd client && bower install && cd .. && npm run update-webdriver",
 
+    "clean": "npm run clean-server && npm run clean-client && if [ -e node_modules ]; then rm -rf node_modules; fi",
+    "clean-server": "cd server && if [ -e flask ]; then rm -rf flask; fi",
+    "clean-client": "cd client && if [ -e app/bower_components ]; then rm -rf app/bower_components; fi",
+
     "start": "cd server && flask/bin/python run.py",
 
     "test": "node node_modules/karma/bin/karma start client/test/karma.conf.js",
