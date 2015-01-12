@@ -4,6 +4,21 @@
 
 var taskControllers = angular.module('taskControllers', []);
 
+taskControllers.controller('CommonCtrl', function($scope, Restangular, $alert) {
+  Restangular.setErrorInterceptor(function (resp) {
+    console.debug(resp);
+    $alert({
+      title: "Error " + resp.status,
+      content: resp.statusText + "<br />" + resp.data,
+      container: "body",
+      placement: "top-right",
+      type: "danger",
+      duration: 10,
+      show: true
+    });
+  });
+});
+
 taskControllers.controller('TaskListCtrl', ['$scope', 'Task',
   function($scope, Task) {
     $scope.tasks = Task.getList().$object;
