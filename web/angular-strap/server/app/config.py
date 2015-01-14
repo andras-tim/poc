@@ -27,7 +27,7 @@ class Config(object):
         raw_config = config_reader(yaml_config_path)
 
         substituted_config = cls.__substitute_config(raw_config, config_variables)
-        parsed_yaml = yaml.load(substituted_config)
+        parsed_yaml = yaml.load(substituted_config, Loader=yaml.CLoader)
 
         used_config = parsed_yaml["USED_CONFIG"]
         inherited_config = cls.__inherit_config(parsed_yaml, used_config)
