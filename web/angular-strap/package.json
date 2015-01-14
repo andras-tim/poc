@@ -17,7 +17,7 @@
     "preinstall": "sudo apt-get install build-essential python3.4 python3.4-dev python-virtualenv",
     "postinstall": "npm run install-server && npm run install-client",
 
-    "install-server": "cd server && if [ ! -e flask ]; then virtualenv -p /usr/bin/python3.4 flask; fi && flask/bin/pip install -r pip.pkgs --upgrade --allow-external mysql-connector-python && if [ ! -e app/static ]; then ln -s ../../client/app app/static; fi",
+    "install-server": "cd server && if [ ! -e flask ]; then virtualenv -p /usr/bin/python3.4 flask; fi && flask/bin/pip install --upgrade pip setuptools && flask/bin/pip install -r requirements.txt --upgrade --allow-external mysql-connector-python && if [ ! -e app/static ]; then ln -s ../../client/app app/static; fi",
     "install-client": "cd client && bower install && cd .. && npm run update-webdriver",
 
     "clean": "npm run clean-server && npm run clean-client && if [ -e node_modules ]; then rm -rf node_modules; fi",
