@@ -2,11 +2,10 @@
 import os.path
 from migrate.versioning import api
 
+from app.server import config, db
 
-@profile
+
 def main():
-    from app.server import config, db
-
     db.create_all()
     if not os.path.exists(config.App.MIGRATE_REPO_PATH):
         api.create(config.App.MIGRATE_REPO_PATH, 'database repository')

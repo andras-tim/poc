@@ -16,7 +16,6 @@ class Config(object):
     }
 
     @classmethod
-    @profile
     def read(cls, yaml_config_path=None, config_variables=None, config_reader=None):
         if not yaml_config_path:
             yaml_config_path = os.path.join(basedir, "config.yml")
