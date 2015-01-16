@@ -1,10 +1,10 @@
 from flask import Flask
-from flask.ext import restful
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.login import LoginManager
 from flask.ext.bcrypt import Bcrypt
 
 from .config import Config
+from . res.restfulApi import RestfulApiWithoutSimpleAuth
 
 
 config = Config.read()
@@ -21,7 +21,8 @@ lm = LoginManager()
 lm.init_app(app)
 
 # flask-restful
-api = restful.Api(app)
+api = RestfulApiWithoutSimpleAuth(app)
+
 
 # flask-bcrypt
 bcrypt = Bcrypt(app)

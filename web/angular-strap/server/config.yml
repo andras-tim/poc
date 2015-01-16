@@ -9,6 +9,7 @@ DefaultConfig:
   Flask:
     # http://flask.pocoo.org/docs/0.10/config/
     SECRET_KEY: SoseTalalodKi!
+    ALLOW_API_SIMPLE_AUTH: True
     DEBUG: False
     TESTING: False
 
