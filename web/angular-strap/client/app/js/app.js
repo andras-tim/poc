@@ -24,10 +24,6 @@ taskApp.config(['$modalProvider',
 taskApp.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
-      when('/login', {
-        templateUrl: 'partials/login.html',
-        controller: 'LoginCtrl'
-      }).
       when('/tasks', {
         templateUrl: 'partials/task-list.html',
         controller: 'TaskListCtrl'
@@ -37,7 +33,7 @@ taskApp.config(['$routeProvider',
         controller: 'TaskDetailCtrl'
       }).
       otherwise({
-        redirectTo: '/login'
+        redirectTo: '/tasks'
       });
   }]);
 
