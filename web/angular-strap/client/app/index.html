@@ -9,9 +9,23 @@
   <link rel="stylesheet" href="bower_components/angular-motion/dist/angular-motion.css">
   <link rel="stylesheet" href="css/app.css">
 </head>
-<body>
+<body ng-controller="ApplicationController">
+
+  <div ng-if="currentUser">Welcome, {{ currentUser.email }}</div>
+
+
+  <div ng-if="isAuthorized(userRoles.admin)">You're admin.</div>
+
+
+  <div ng-switch on="currentUser.role">
+    <div ng-switch-when="userRoles.admin">You're admin.</div>
+    <div ng-switch-when="userRoles.editor">You're editor.</div>
+    <div ng-switch-default>You're something else.</div>
+  </div>
 
   <div ng-view></div>
+
+  <div login-dialog ng-if="!isLoginPage"></div>
 
   <script src="bower_components/jquery/dist/jquery.js"></script>
   <script src="bower_components/lodash/dist/lodash.js"></script>
@@ -28,5 +42,6 @@
   <script src="js/controllers.js"></script>
   <script src="js/filters.js"></script>
   <script src="js/services.js"></script>
+  <script src="js/directives.js"></script>
 </body>
 </html>

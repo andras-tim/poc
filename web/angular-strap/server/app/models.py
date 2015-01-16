@@ -8,6 +8,7 @@ class User(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False, info={'validators': Email()})
     password = db.Column(db.String(80), nullable=False)
     tasks = db.relationship('Task', backref='user', lazy='dynamic')
+    roles = "admin"
  
     def __init__(self, email, password):
         self.email = email

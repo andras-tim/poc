@@ -4,6 +4,32 @@
 
 var taskControllers = angular.module('taskControllers', []);
 
+taskControllers.controller('ApplicationController', function ($scope, USER_ROLES, AuthService) {
+  $scope.currentUser = null;
+  $scope.userRoles = USER_ROLES;
+  $scope.isAuthorized = AuthService.isAuthorized;
+  $scope.isLoginPage  = false;
+
+  $scope.setCurrentUser = function (user) {
+    $scope.currentUser = user;
+  };
+})
+
+taskControllers.controller('LoginController', function ($scope, $rootScope, AUTH_EVENTS, AuthService) {
+  $scope.credentials = {
+    username: '',
+    password: ''
+  };
+  $scope.login = function (credentials) {
+    AuthService.login(credentials).then(function (user) {
+      $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+      $scope.setCurrentUser(user);
+    }, function () {
+      $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
+    });
+  };
+})
+
 taskControllers.controller('TaskListCtrl', function($scope, $location, Task, Session) {
     $scope.tasks = Task.getList().$object;
     $scope.orderProp = 'title';

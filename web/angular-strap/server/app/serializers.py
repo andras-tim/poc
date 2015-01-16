@@ -3,7 +3,7 @@ from marshmallow import Serializer, fields
 
 class UserSerializer(Serializer):
     class Meta:
-        fields = ("id", "email")
+        fields = ("id", "email", "roles")
 
 
 class TaskSerializer(Serializer):
