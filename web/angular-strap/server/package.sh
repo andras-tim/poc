@@ -17,7 +17,7 @@ function do_postinstall()
 
     # Update Python packages
     flask/bin/pip install --upgrade pip setuptools
-    flask/bin/pip install -r requirements.txt --upgrade --allow-external mysql-connector-python
+    flask/bin/pip install -r requirements.txt --upgrade
 
     # Create directories
     if [ ! -e tmp ]

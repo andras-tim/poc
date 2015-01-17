@@ -21,7 +21,7 @@ ProductionConfig:
   Base: DefaultConfig
 
   Flask:
-    SQLALCHEMY_DATABASE_URI: mysql+mysqlconnector://tasks:a@localhost/tasks
+    SQLALCHEMY_DATABASE_URI: mysql+pymysql://tasks:a@localhost/tasks
 
 
 DevelopmentConfig:
