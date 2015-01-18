@@ -22,6 +22,10 @@ function do_clear()
     then
         rm -rf app/bower_components
     fi
+    if [ -e node_modules ]
+    then
+        rm -rf node_modules
+    fi
 }
 
 function do_test()
