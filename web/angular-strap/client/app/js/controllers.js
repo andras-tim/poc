@@ -4,7 +4,7 @@
 
 var taskControllers = angular.module('taskControllers', []);
 
-taskControllers.controller('CommonCtrl', function($scope, Restangular, $alert) {
+taskControllers.controller('CommonCtrl', function($scope, Restangular, $alert, gettextCatalog) {
   Restangular.setErrorInterceptor(function (resp) {
     console.debug(resp);
     $alert({
@@ -17,6 +17,11 @@ taskControllers.controller('CommonCtrl', function($scope, Restangular, $alert) {
       show: true
     });
   });
+
+
+  $scope.changeLanguage = function (lang) {
+    gettextCatalog.currentLanguage = lang;
+  };
 });
 
 taskControllers.controller('LoginCtrl', function($scope, $location, Restangular, Session) {

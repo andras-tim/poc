@@ -2,18 +2,24 @@
 <html lang="en" ng-app="taskApp">
 <head>
   <meta charset="utf-8">
-  <title>Tasks</title>
+  <title ng-bind="'Tasks' | translate"></title>
 
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
   <link rel="stylesheet" href="bower_components/bootstrap-additions/dist/bootstrap-additions.css">
   <link rel="stylesheet" href="bower_components/angular-motion/dist/angular-motion.css">
   <link rel="stylesheet" href="css/app.css">
 </head>
-<body>
+<body ng-controller="CommonCtrl">
 
-  <div ng-controller="CommonCtrl"></div>
+  <div >
+    <p ng-bind="'Welcome ladies and gentlemen!' | translate"></p>
+    <p ng-bind="'We want to test globalization and localization.' | translate"></p>
+  </div>
 
   <div ng-view></div>
+
+  <button type="button" class="btn btn-lg" ng-click="changeLanguage('hu');">HU</button>
+  <button type="button" class="btn btn-lg" ng-click="changeLanguage('EN');">EN</button>
 
   <script src="bower_components/jquery/dist/jquery.js"></script>
   <script src="bower_components/lodash/dist/lodash.js"></script>
@@ -25,10 +31,12 @@
   <script src="bower_components/restangular/dist/restangular.js"></script>
   <script src="bower_components/angular-strap/dist/angular-strap.js"></script>
   <script src="bower_components/angular-strap/dist/angular-strap.tpl.js"></script>
+  <script src="bower_components/angular-gettext/dist/angular-gettext.js"></script>
 
   <script src="js/app.js"></script>
   <script src="js/controllers.js"></script>
   <script src="js/filters.js"></script>
   <script src="js/services.js"></script>
+  <script src="js/translations.js"></script>
 </body>
 </html>

@@ -8,6 +8,7 @@ var taskApp = angular.module('taskApp', [
   'ngRoute',
   'ngAnimate',
   'restangular',
+  'gettext',
   'taskControllers',
   'taskFilters',
   'taskServices'
@@ -45,3 +46,9 @@ taskApp.config(['RestangularProvider',
   function(RestangularProvider) {
     RestangularProvider.setBaseUrl('api');
   }]);
+
+
+taskApp.run(function (gettextCatalog) {
+  gettextCatalog.currentLanguage = 'en';
+  gettextCatalog.debug = true;
+});

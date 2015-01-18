@@ -3,20 +3,20 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" ng-click="$hide()">&times;</button>
-        <h4 class="modal-title">Add new task</h4>
+        <h4 class="modal-title" ng-bind="'Add new task' | translate"></h4>
       </div>
       <form>
         <div class="modal-body">
-          <label>Title:</label>
-          <input type="text" class="form-control" placeholder="Enter title" ng-model="task.title" />
+          <label ng-bind="'Title:' | translate"></label>
+          <input type="text" class="form-control" placeholder="{{'Enter title' | translate}}" ng-model="task.title" />
         </div>
         <div class="modal-body">
-          <label>Description:</label>
-          <input type="text" class="form-control" placeholder="Enter description" ng-model="task.description" />
+          <label ng-bind="'Description:' | translate"></label>
+          <input type="text" class="form-control" placeholder="{{'Enter description' | translate}}" ng-model="task.description" />
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" ng-click="update(task); $hide()">Add new</button>
-          <button type="button" class="btn btn-default" ng-click="$hide()">Cancel</button>
+          <button type="button" class="btn btn-primary" ng-click="update(task); $hide()" ng-bind="'Add new' | translate"></button>
+          <button type="button" class="btn btn-default" ng-click="$hide()" ng-bind="'Cancel' | translate"></button>
         </div>
       </form>
       <pre>form = {{task | json}}</pre>

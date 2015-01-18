@@ -1,0 +1,5 @@
+angular.module('gettext').run(['gettextCatalog', function (gettextCatalog) {
+/* jshint -W100 */
+    gettextCatalog.setStrings('hu', {"Add new":"Új hozzáadása","Add new task":"Új feladat hozzáadása","Auth check":"Bejelentkezés ellenőrzése","Cancel":"Mégse","Command":"Művelet","Delete":"Törlés","Description:":"Leírás:","Done":"Kész","Email":"Email","Enter description":"Learás","Enter search query":"Keresési kifejetés","Enter title":"Cím","LogOut":"Kijelentkezés","Login":"Bejelentkezés","New Task":"Új feladat","Password":"Jelszó","Remember me":"Emlékezz rám","Search:":"Keresés:","Sign in":"Bejelentkezés","Sort by:":"Rendezés:","Tasks":"Feladatok","The email address is invalid":"Az email cím nem megfelelő","The user's email is required":"Az email címet kötelező megadni","The user's password is required":"A jelszót kötelező megadni","This field should not be left blank.":"Ez a mező nem maradhat üresen.","Title":"Cím","Title:":"Cím:","Welcome ladies and gentlemen!":"Hölgyeim és uraim!","Done:":"Kész:","We want to test globalization and localization.":"Le akarjuk tesztelni a globalizációt és a lokalizációt."});
+/* jshint +W100 */
+}]);

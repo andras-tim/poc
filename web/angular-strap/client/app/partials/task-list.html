@@ -4,16 +4,16 @@
       <!--Sidebar content-->
 
       <div class="form-group">
-        <label>Search:</label>
-        <input type="text" class="form-control" placeholder="Enter search query" ng-model="query" />
+        <label ng-bind="'Search:' | translate"></label>
+        <input type="text" class="form-control" placeholder="{{'Enter search query' | translate}}" ng-model="query" />
       </div>
       <div class="form-group">
-        <label>Sort by:</label>
+        <label ng-bind="'Sort by:' | translate"></label>
         <select class="form-control" ng-model="orderProp">
-          <option value="title">Title /\</option>
-          <option value="-title">Title \/</option>
-          <option value="description">Description /\</option>
-          <option value="-description">Description \/</option>
+          <option value="title" ng-bind="'Title /\\' | translate"></option>
+          <option value="-title" ng-bind="'Title \\/' | translate"></option>
+          <option value="description" ng-bind="'Description /\\' | translate"></option>
+          <option value="-description" ng-bind="'Description \\/' | translate"></option>
         </select>
       </div>
 
@@ -24,22 +24,22 @@
       <h2>Tasks</h2>
       <table class="table">
         <thead>
-          <th width="200">Title</th>
-          <th width="50">Done</th>
-          <th></th>
+          <th width="200" ng-bind="'Title' | translate"></th>
+          <th width="50" ng-bind="'Done' | translate"></th>
+          <th width="1" ng-bind="'Command' | translate"></th>
         </thead>
         <tbody>
           <tr ng-repeat="task in tasks | filter:query | orderBy:orderProp">
             <td><a href="#/tasks/{{task.id}}">{{task.title}}</a></td>
             <td data-ng-click="toggle_done(task)">{{task.done | checkmark}}</td>
-            <td><button type="button" class="btn btn-danger" ng-click="remove(task)">Delete</button></td>
+            <td><button type="button" class="btn btn-danger" ng-click="remove(task)" ng-bind="'Delete' | translate"></button></td>
           </tr>
         </tbody>
       </table>
-      <button type="button" class="btn btn-lg" ng-click="login()">Login</button>
-      <button type="button" class="btn btn-lg" ng-click="loginTest()">Auth check</button>
-      <button type="button" class="btn btn-lg" ng-click="logout()">LogOut</button>
-      <button type="button" class="btn btn-lg btn-primary" data-template="partials/task-list_new-task-modal.html" bs-modal="modal">New Task</button>
+      <button type="button" class="btn btn-lg" ng-click="login()" ng-bind="'Login' | translate"></button>
+      <button type="button" class="btn btn-lg" ng-click="loginTest()" ng-bind="'Auth check' | translate"></button>
+      <button type="button" class="btn btn-lg" ng-click="logout()" ng-bind="'LogOut' | translate"></button>
+      <button type="button" class="btn btn-lg btn-primary" data-template="partials/task-list_new-task-modal.html" bs-modal="modal" ng-bind="'New Task' | translate"></button>
     </div>
   </div>
 </div>

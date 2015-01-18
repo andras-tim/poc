@@ -1,0 +1,151 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Tasks 1.0\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: Andras Tim <andras.tim@gmail.com>\n"
+"Language-Team:  <andras.tim@gmail.com>\n"
+"Language: hu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-Basepath: ../\n"
+
+#: app/partials/task-list_new-task-modal.html:18
+msgid "Add new"
+msgstr "Új hozzáadása"
+
+#: app/partials/task-list_new-task-modal.html:6
+msgid "Add new task"
+msgstr "Új feladat hozzáadása"
+
+#: app/partials/task-list.html:40
+msgid "Auth check"
+msgstr "Bejelentkezés ellenőrzése"
+
+#: app/partials/task-list_new-task-modal.html:19
+msgid "Cancel"
+msgstr "Mégse"
+
+#: app/partials/task-list.html:29
+msgid "Command"
+msgstr "Művelet"
+
+#: app/partials/task-list.html:35
+msgid "Delete"
+msgstr "Törlés"
+
+#: app/partials/task-list.html:15
+#, fuzzy
+msgid "Description /\\"
+msgstr "Leírás /\\"
+
+#: app/partials/task-list.html:16
+#, fuzzy
+msgid "Description \\/"
+msgstr "Leírás \\/"
+
+#: app/partials/task-list_new-task-modal.html:14
+msgid "Description:"
+msgstr "Leírás:"
+
+#: app/partials/task-list.html:28
+msgid "Done"
+msgstr "Kész"
+
+#: app/partials/login.html:12 app/partials/login.html:14
+msgid "Email"
+msgstr "Email"
+
+#: app/partials/task-list_new-task-modal.html:15
+msgid "Enter description"
+msgstr "Learás"
+
+#: app/partials/task-list.html:8
+msgid "Enter search query"
+msgstr "Keresési kifejetés"
+
+#: app/partials/task-list_new-task-modal.html:11
+msgid "Enter title"
+msgstr "Cím"
+
+#: app/partials/task-list.html:41
+msgid "LogOut"
+msgstr "Kijelentkezés"
+
+#: app/partials/login.html:9 app/partials/task-list.html:39
+msgid "Login"
+msgstr "Bejelentkezés"
+
+#: app/partials/task-list.html:42
+msgid "New Task"
+msgstr "Új feladat"
+
+#: app/partials/login.html:22 app/partials/login.html:24
+msgid "Password"
+msgstr "Jelszó"
+
+#: app/partials/login.html:32
+msgid "Remember me"
+msgstr "Emlékezz rám"
+
+#: app/partials/task-list.html:7
+msgid "Search:"
+msgstr "Keresés:"
+
+#: app/partials/login.html:39
+msgid "Sign in"
+msgstr "Bejelentkezés"
+
+#: app/partials/task-list.html:11
+msgid "Sort by:"
+msgstr "Rendezés:"
+
+#: app/index.html:5
+msgid "Tasks"
+msgstr "Feladatok"
+
+#: app/partials/login.html:17
+msgid "The email address is invalid"
+msgstr "Az email cím nem megfelelő"
+
+#: app/partials/login.html:16
+msgid "The user's email is required"
+msgstr "Az email címet kötelező megadni"
+
+#: app/partials/login.html:25
+msgid "The user's password is required"
+msgstr "A jelszót kötelező megadni"
+
+#: app/partials/login.html:15
+msgid "This field should not be left blank."
+msgstr "Ez a mező nem maradhat üresen."
+
+#: app/partials/task-list.html:27
+msgid "Title"
+msgstr "Cím"
+
+#: app/partials/task-list.html:13
+#, fuzzy
+msgid "Title /\\"
+msgstr "Cim /\\"
+
+#: app/partials/task-list.html:14
+#, fuzzy
+msgid "Title \\/"
+msgstr "Cím \\/"
+
+#: app/partials/task-list_new-task-modal.html:10
+msgid "Title:"
+msgstr "Cím:"
+
+#: app/index.html:15
+msgid "Welcome ladies and gentlemen!"
+msgstr "Hölgyeim és uraim!"
+
+#~ msgid "Done:"
+#~ msgstr "Kész:"
+
+#~ msgid "We want to test globalization and localization."
+#~ msgstr "Le akarjuk tesztelni a globalizációt és a lokalizációt."
