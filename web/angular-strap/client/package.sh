@@ -11,9 +11,14 @@ function do_preinstall()
 
 function do_postinstall()
 {
-    npm install
+    if [ "${PRODUCTION}" == true ]
+    then
+        npm install --production
+    else
+        npm install
+        npm run update-webdriver
+    fi
     node_modules/bower/bin/bower install
-    npm run update-webdriver
 }
 
 function do_clear()

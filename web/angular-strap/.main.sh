@@ -16,6 +16,7 @@ $(get_commands | sort | sed 's>^>  * >')
 Available arguments:
   -h, --help            Show this help
   -g, --global          Install/make all changes on system
+  -p, --production      Prepare environment for production use
 
 EOF
 }
@@ -24,6 +25,7 @@ EOF
 # Init
 cmd=
 export GLOBAL_INSTALL=${GLOBAL_INSTALL:-false}
+export PRODUCTION=${PRODUCTION:-false}
 while [ $# -gt 0 ]
 do
     case "$1" in
@@ -31,6 +33,8 @@ do
                             exit 0
                             ;;
         --global|-g)        export GLOBAL_INSTALL=true
+                            ;;
+        --production|-p)    export PRODUCTION=true
                             ;;
         *)                  if [ "${cmd}" == '' ]
                             then

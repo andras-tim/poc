@@ -38,10 +38,13 @@ function do_postinstall()
         mkdir -p tmp
     fi
 
-    # Create symlinks
-    if [ ! -e app/static ]
+    if [ "${PRODUCTION}" == false ]
     then
-        ln -s ../../client/app app/static
+        # Create symlinks
+        if [ ! -e app/static ]
+        then
+            ln -s ../../client/app app/static
+        fi
     fi
 }
 
