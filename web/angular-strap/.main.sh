@@ -15,6 +15,7 @@ $(get_commands | sort | sed 's>^>  * >')
 
 Available arguments:
   -h, --help            Show this help
+  -g, --global          Install/make all changes on system
 
 EOF
 }
@@ -22,11 +23,14 @@ EOF
 
 # Init
 cmd=
+export GLOBAL_INSTALL=${GLOBAL_INSTALL:-false}
 while [ $# -gt 0 ]
 do
     case "$1" in
         --help|-h)          show_help
                             exit 0
+                            ;;
+        --global|-g)        export GLOBAL_INSTALL=true
                             ;;
         *)                  if [ "${cmd}" == '' ]
                             then

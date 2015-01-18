@@ -4,20 +4,33 @@ PYTHON_VERSION=3.4
 
 function do_preinstall()
 {
-    sudo apt-get install build-essential python${PYTHON_VERSION} python${PYTHON_VERSION}-dev python-virtualenv libyaml-dev #libpython${PYTHON_VERSION}-dev
+    packages="build-essential python${PYTHON_VERSION} python${PYTHON_VERSION}-dev libyaml-dev" #libpython${PYTHON_VERSION}-dev
+    if [ "${GLOBAL_INSTALL}" == true ]
+    then
+        packages="${packages} python3-pip"
+    else
+        packages="${packages} python-virtualenv"
+    fi
+    sudo apt-get install ${packages}
 }
 
 function do_postinstall()
 {
-    # Install virtualenv
-    if [ ! -e flask ]
+    pip="sudo pip3"
+    if [ "${GLOBAL_INSTALL}" == false ]
     then
-        virtualenv -p /usr/bin/python${PYTHON_VERSION} flask
+        pip='flask/bin/pip'
+
+        # Install virtualenv
+        if [ ! -e flask ]
+        then
+            virtualenv -p /usr/bin/python${PYTHON_VERSION} flask
+        fi
     fi
 
     # Update Python packages
-    flask/bin/pip install --upgrade pip setuptools
-    flask/bin/pip install -r requirements.txt --upgrade
+    ${pip} install --upgrade pip setuptools
+    ${pip} install -r requirements.txt --upgrade
 
     # Create directories
     if [ ! -e tmp ]
@@ -55,7 +68,12 @@ function do_clear()
 
 function do_start()
 {
-    flask/bin/python${PYTHON_VERSION} run.py
+    python="python${PYTHON_VERSION}"
+    if [ "${GLOBAL_INSTALL}" == false ]
+    then
+        python='flask/bin/python'
+    fi
+    ${python} run.py
 }
 
 
