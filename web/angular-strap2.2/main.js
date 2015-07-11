@@ -1,6 +1,7 @@
 'use strict';
 
 angular.module('myApp', [
+    'ngAnimate',
     'ngSanitize',
     'mgcrea.ngStrap',
     'appControllers'
