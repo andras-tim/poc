@@ -1,0 +1,13 @@
+{
+  "name": "angular-strap2.2",
+  "version": "1.0.0",
+  "description": "POC on AngularStrap2.2",
+  "private": true,
+  "dependencies": {
+    "bower": "^1.4.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "postinstall": "node node_modules/bower/bin/bower install"
+  }
+}
