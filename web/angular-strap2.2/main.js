@@ -1,6 +1,7 @@
 'use strict';
 
 angular.module('myApp', [
+    'ngSanitize',
     'mgcrea.ngStrap',
     'appControllers'
 ]);
@@ -21,7 +22,12 @@ appControllers.controller('myCtrl', ['$scope',
         ];
 
         $scope.selectedIcon = '';
-        $scope.icons = '[{"value":"Gear","label":"<i class=\"fa fa-gear\"></i> Gear"},{"value":"Globe","label":"<i class=\"fa fa-globe\"></i> Globe"},{"value":"Heart","label":"<i class=\"fa fa-heart\"></i> Heart"},{"value":"Camera","label":"<i class=\"fa fa-camera\"></i> Camera"}]';
+        $scope.icons = [
+            {value: 'Gear', label: '<i class="fa fa-gear"></i> Gear'},
+            {value: 'Globe', label: '<i class="fa fa-globe"></i> Globe'},
+            {value: 'Heart', label: '<i class="fa fa-heart"></i> Heart'},
+            {value: 'Camera', label: '<i class="fa fa-camera"></i> Camera'}
+        ];
 
         $scope.selectedAddress = '';
 
