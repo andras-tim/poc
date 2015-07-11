@@ -8,8 +8,8 @@ angular.module('myApp', [
 
 var appControllers = angular.module('appControllers', []);
 
-appControllers.controller('myCtrl', ['$scope',
-    function ($scope) {
+appControllers.controller('myCtrl', ['$scope', '$http',
+    function ($scope, $http) {
 
         $scope.selectedState = '';
         $scope.states = [
@@ -30,6 +30,13 @@ appControllers.controller('myCtrl', ['$scope',
         ];
 
         $scope.selectedAddress = '';
+        $scope.getAddress = function (viewValue) {
+            var params = {address: viewValue, sensor: false};
+            return $http.get('http://maps.googleapis.com/maps/api/geocode/json', {params: params})
+                .then(function (res) {
+                    return res.data.results;
+                });
+        };
 
     }]);
 
