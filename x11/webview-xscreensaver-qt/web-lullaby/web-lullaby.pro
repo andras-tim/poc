@@ -17,7 +17,8 @@ SOURCES += main.cpp\
     screensaver.cpp
 
 HEADERS  += mainwindow.h \
-    screensaver.h
+    screensaver.h \
+    main.h
 
 FORMS    += mainwindow.ui \
     screensaver.ui
