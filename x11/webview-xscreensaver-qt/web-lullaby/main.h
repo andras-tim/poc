@@ -4,8 +4,10 @@
 #include "mainwindow.h"
 #include "screensaver.h"
 #include <QApplication>
+#include <QStyleFactory>
 #include <QWindow>
-#include <QWidget>
+#include <QMessageBox>
+#include <QDebug>
 
 int main(int argc, char *argv[]);
 
