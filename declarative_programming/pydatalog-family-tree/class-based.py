@@ -28,44 +28,29 @@ def print_eval(code):
     print('### {}'.format(code))
     ret = eval(code)
 
-    print('{ret_type}\n\n{ret}\n'.format(
+    print('type: {ret_type}\n\n{ret}\n'.format(
         ret_type=type(ret),
         ret=textwrap.indent(str(ret), '    ')
     ))
 
-pyDatalog.create_terms('X, Y, Z, PARENT, CHILD, GENDER, ANCESTOR, people, children, ancestors')
 
-"""
-Original:
+pyDatalog.create_terms('X, Y, Z, PARENT, CHILD, GENDER, ANCESTOR, children, ancestors')
 
-+(mother['Look Skywalker'] == 'Padmé Amidala')
-+(father['Look Skywalker'] == 'Anakin Skywalker')
-
-+(mother['Leia Organa'] == 'Padmé Amidala')
-+(father['Leia Organa'] == 'Anakin Skywalker')
-
-+(mother['Anakin Solo'] == 'Leia Organa')
-+(father['Anakin Solo'] == 'Han Solo')
-
-+(mother['Foo Smally'] == 'Ciao Mediumy')
-+(father['Foo Smally'] == 'Look Skywalker')
-"""
-
-_snakin_skywalker = Person('Anakin Skywalker', 'male')
+_anakin_skywalker = Person('Anakin Skywalker', 'male')
 _padme_amidala = Person('Padmé Amidala', 'female')
 _mara_jade = Person('Mara Jade', 'female')
-_look_skywalker = Person('Look Skywalker', 'male', father=_snakin_skywalker, mother=_padme_amidala)
+_look_skywalker = Person('Look Skywalker', 'male', father=_anakin_skywalker, mother=_padme_amidala)
 _ben_skywalker = Person('Ben Skywalker', 'male', father=_look_skywalker, mother=_mara_jade)
-_leia_organa = Person('Leia Organa', 'female', father=_snakin_skywalker, mother=_padme_amidala)
+_leia_organa = Person('Leia Organa', 'female', father=_anakin_skywalker, mother=_padme_amidala)
 _han_solo = Person('Han Solo', 'male')
 _jaina_solo = Person('Jaina Solo', 'female', father=_han_solo, mother=_leia_organa)
 _jacen_solo = Person('Jacen Solo', 'male', father=_han_solo, mother=_leia_organa)
 _anakin_solo = Person('Anakin Solo', 'male', father=_han_solo, mother=_leia_organa)
 
-
 print_eval('Person.name[X]')
-print_eval('(Person.name[X])')
+
 print_eval('Person.name[X] == "foo"')
+
 print_eval('Person.gender[X] == "male"')
 print_eval('Person.name[X] == "Look Skywalker"')
 print_eval('(Person.name[X] == "Look Skywalker") >= X')
@@ -77,11 +62,5 @@ print_eval('children(PARENT, CHILD) & (Person.gender[CHILD] == GENDER)')
 
 ancestors(X, Y) <= (children(X, Y))
 ancestors(X, Z) <= (children(X, Y) & ancestors(Y, Z))
-
-"""
-Original:
-
-print(ancestors('Anakin Skywalker', X))
-"""
 
 print_eval('(Person.name[PARENT] == "Padmé Amidala") & ancestors(PARENT, ANCESTOR)')
