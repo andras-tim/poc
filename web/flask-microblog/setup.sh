@@ -1,11 +1,11 @@
 #!/bin/bash -e
 
 # Update system
-sudo apt-get install build-essential python3 python-virtualenv
+sudo apt-get install build-essential python3
 
 # Prepare virtual environment
 if [ ! -e flask ]; then
-    virtualenv -p /usr/bin/python3.4 flask
+    python3 -m virtualenv flask
 fi
 flask/bin/pip install pip --upgrade
 flask/bin/pip install setuptools --upgrade
