@@ -1,0 +1,25 @@
+---
+- name: Install Ansible requirements
+  hosts: localhost
+  become: yes
+
+  tasks:
+  - pip:
+      name:
+        docker
+
+- name: Build docker images
+  hosts: localhost
+
+  tasks:
+  - command: "pwd"
+    register: my_command
+
+  - name: Print version
+    debug:
+      msg: "pwd: {{ my_command.stdout }}"
+
+  - name: Test ubuntu
+    docker_image:
+      path: "{{ playbook_dir }}/docker/foo"
+      name: test
