@@ -1,24 +1,63 @@
 ---
-- name: Install Ansible requirements
+- name: Update APT packages
   hosts: localhost
-  become: yes
+  gather_facts: no
+  tasks:
+  - apt:
+      upgrade: dist
+      cache_valid_time: 3600
 
+- name: Install docker
+  hosts: localhost
+  gather_facts: no
+  tasks:
+  - apt_key:
+      url: "https://download.docker.com/linux/ubuntu/gpg"
+      state: present
+  - apt_repository:
+      repo: "deb https://download.docker.com/linux/ubuntu bionic stable"
+      state: present
+  - apt:
+      name: docker-ce
+      state: latest
+
+- name: Update Python setup stuff
+  hosts: localhost
+  gather_facts: no
   tasks:
   - pip:
+      executable: "{{item}}"
       name:
-        docker
+      - pip
+      - setuptools
+      - wheel
+      state: latest
+    with_items:
+    - pip2
+    - pip3
+  - apt:
+      name:
+      - python3-pip
+      - python-pip
+      state: absent
+
+- name: Install Ansible requirements
+  hosts: localhost
+  gather_facts: no
+  tasks:
+  - apt:
+  - pip:
+      name: docker
 
 - name: Build docker images
   hosts: localhost
-
+  gather_facts: no
   tasks:
   - command: "pwd"
     register: my_command
-
   - name: Print version
     debug:
       msg: "pwd: {{ my_command.stdout }}"
-
   - name: Test ubuntu
     docker_image:
       path: "{{ playbook_dir }}/docker/foo"
