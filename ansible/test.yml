@@ -49,19 +49,23 @@
   hosts: localhost
   gather_facts: no
   tasks:
-  - apt:
   - pip:
       name: docker
+      state: latest
 
-- name: Build docker images
+
+- name: Install basic packages
   hosts: localhost
   gather_facts: no
   tasks:
-  - command: "pwd"
-    register: my_command
-  - name: Print version
-    debug:
-      msg: "pwd: {{ my_command.stdout }}"
+    - apt:
+        name: mc
+        state: latest
+
+- name: Setup docker images
+  hosts: localhost
+  gather_facts: no
+  tasks:
   - name: Test ubuntu
     docker_image:
       path: "{{ playbook_dir }}/docker/foo"
