@@ -1,4 +1,5 @@
 ---
+
 - name: Update APT packages
   hosts: localhost
   gather_facts: no
@@ -23,23 +24,26 @@
 
 - name: Update Python setup stuff
   hosts: localhost
-  gather_facts: no
+  vars:
+    pythons:
+      - python
+      - python3
   tasks:
-  - pip:
-      executable: "{{item}}"
-      name:
-      - pip
-      - setuptools
-      - wheel
-      state: latest
-    with_items:
-    - pip2
-    - pip3
-  - apt:
-      name:
-      - python3-pip
-      - python-pip
-      state: absent
+    - apt:
+        name: "{{ item }}-pip"
+        state: absent
+      with_items: "{{ pythons }}"
+
+    - apt:
+        name: "python3-distutils"
+        state: present
+
+    - include_role:
+        name: bobbyrenwick.pip
+      vars:
+        python: "{{ item }}"
+        pip: "{{ item }} -m pip"
+      with_items: "{{ pythons }}"
 
 - name: Install Ansible requirements
   hosts: localhost

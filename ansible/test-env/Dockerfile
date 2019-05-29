@@ -12,6 +12,7 @@ RUN set -xe \
 RUN set -xe \
     && apt-get install -y \
         ssh \
+        sudo \
     && mkdir /run/sshd \
     \
     && mkdir -p "${HOME}/.ssh" \
@@ -26,13 +27,6 @@ RUN set -xe \
     && apt-add-repository -y ppa:ansible/ansible \
     && apt-get install -y \
         ansible
-
-RUN set -xe \
-    && apt-get install -y \
-        python \
-        python-pip \
-        python3 \
-        python3-pip
 
 ENTRYPOINT ["/aaa/test-env/entrypoint.sh"]
 CMD ["/bin/bash"]
