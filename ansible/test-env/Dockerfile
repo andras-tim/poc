@@ -13,6 +13,7 @@ RUN set -xe \
     && apt-get install -y \
         ssh \
         sudo \
+        vim \
     && mkdir /run/sshd \
     \
     && mkdir -p "${HOME}/.ssh" \
